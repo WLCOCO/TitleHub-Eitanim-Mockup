@@ -1,0 +1,23 @@
+<!-- 
+  login.html — Sign-in page
+  Minimal form: just email + password. 
+  Links to signup for new users.
+-->
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="auth-section">
+    <div class="auth-card">
+        <h1 class="auth-title">Welcome Back</h1>
+        <p class="auth-subtitle">Log in to continue watching</p>
+
+        <a href="/?onboard=1" class="btn btn-primary btn-full">Log In</a>
+
+        <p class="auth-switch">
+            Don't have an account? <a href="/signup">Sign up</a>
+        </p>
+    </div>
+</section>
+
+{% endblock %}

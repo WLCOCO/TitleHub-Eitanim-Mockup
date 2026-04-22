@@ -1,0 +1,470 @@
+<!-- 
+  browse.html — Main content dashboard (requires login)
+  Netflix-style layout: horizontal scrolling rows organized by category.
+  Hover plays a short trailer clip via YouTube embed. Platform shown as
+  subtle small text beneath the title.
+-->
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Redirect to home on refresh or if no platforms selected (handled instantly before render) -->
+<script>
+    (function () {
+        var nav = window.performance && performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+        if (!nav || nav.type === "reload") {
+            sessionStorage.removeItem("th_platforms");
+            sessionStorage.removeItem("th_plan");
+            window.location.replace("/");
+            return;
+        }
+        var platforms;
+        try { platforms = JSON.parse(sessionStorage.getItem("th_platforms")); } catch (e) { platforms = null; }
+        if (!platforms || platforms.length === 0) {
+            window.location.replace("/");
+        }
+    }());
+</script>
+
+<section class="browse-header">
+    <div class="browse-welcome">
+        <h1>Your Library</h1>
+        <p class="browse-subtitle">Showing content from your selected platforms</p>
+    </div>
+    <div class="browse-search">
+        <input type="text" id="content-search" placeholder="Search movies, shows, platforms..." class="search-input"
+            aria-label="Search content">
+    </div>
+</section>
+
+<!-- ── Category filter pills ── -->
+<section class="filter-bar">
+    <button class="filter-pill active" data-filter="all">All</button>
+    <button class="filter-pill" data-filter="movie">Movies</button>
+    <button class="filter-pill" data-filter="show">TV Shows</button>
+    <button class="filter-pill" data-filter="netflix">Netflix</button>
+    <button class="filter-pill" data-filter="hulu">Hulu</button>
+    <button class="filter-pill" data-filter="disney">Disney+</button>
+    <button class="filter-pill" data-filter="max">Max</button>
+    <button class="filter-pill" data-filter="paramount">Paramount+</button>
+    <button class="filter-pill" data-filter="prime">Prime Video</button>
+</section>
+
+<!-- ── Trending Now ── -->
+<section class="content-row" data-section="trending">
+    <h2 class="row-title">Trending Now</h2>
+    <div class="row-scroll">
+
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="dqGKkbjVQiE">
+            <div class="card-poster">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJOOBsSXu5RmCS5Y_hvl_g6zaznOgE6VD2Teh3dqqfeiTa00Vk"
+                    alt="Wednesday">
+            </div>
+            <div class="card-info">
+                <h3>Wednesday</h3>
+                <span class="card-meta">TV Show · Mystery</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="pBk4NYhWNMM">
+            <div class="card-poster">
+                <img src="https://resizing.flixster.com/-XZAfHZM39UwaGJIFWKAE8fS0ak=/v3/t/assets/p13472534_p_v8_am.jpg"
+                    alt="Barbie">
+            </div>
+            <div class="card-info">
+                <h3>Barbie</h3>
+                <span class="card-meta">Movie · Comedy</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="oqxAJKy0ii4">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/dDlEmu3EZ0Pgg93K2SVNLCjCSvE.jpg" alt="Squid Game">
+            </div>
+            <div class="card-info">
+                <h3>Squid Game</h3>
+                <span class="card-meta">TV Show · Thriller</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="DotnJ7tTA34">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/z2yahl2uefxDCl0nogcRBstwruJ.jpg" alt="House of the Dragon">
+            </div>
+            <div class="card-info">
+                <h3>House of the Dragon</h3>
+                <span class="card-meta">TV Show · Fantasy</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="hulu" data-trailer="y-cqqAJIXhs">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/sHFlbKS3WLqMnp9t2ghADIJFnuQ.jpg" alt="The Bear">
+            </div>
+            <div class="card-info">
+                <h3>The Bear</h3>
+                <span class="card-meta">TV Show · Drama</span>
+                <span class="card-platform">Hulu</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="paramount" data-trailer="giXco2jaZ_4">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/62HCnUTHOWT7IOTGnKXl3l9eoer.jpg" alt="Top Gun: Maverick">
+            </div>
+            <div class="card-info">
+                <h3>Top Gun: Maverick</h3>
+                <span class="card-meta">Movie · Action</span>
+                <span class="card-platform">Paramount+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="BSCT4--fDoI">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/edMl7lQ9FHX59HkiGiLOO2CxGXP.jpg" alt="Reacher">
+            </div>
+            <div class="card-info">
+                <h3>Reacher</h3>
+                <span class="card-meta">TV Show · Action</span>
+                <span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── Hit Shows ── -->
+<section class="content-row" data-section="shows">
+    <h2 class="row-title">Hit Shows</h2>
+    <div class="row-scroll">
+
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="b9EkMc79ZSU">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg" alt="Stranger Things">
+            </div>
+            <div class="card-info">
+                <h3>Stranger Things</h3>
+                <span class="card-meta">TV Show · Sci-Fi</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="uLtkt8BonwM">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/uKvVjHNqB5VmOrdxqAt2F7J78ED.jpg" alt="The Last of Us">
+            </div>
+            <div class="card-info">
+                <h3>The Last of Us</h3>
+                <span class="card-meta">TV Show · Drama</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="Xoq-OKpInf4">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/e2X8kSEPBeo5oJoaoX2kZiK8cbe.jpg" alt="Succession">
+            </div>
+            <div class="card-info">
+                <h3>Succession</h3>
+                <span class="card-meta">TV Show · Drama</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="tcrNsIaQkb4">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/stTEycfG9928HYGEISBFaG1ngjM.jpg" alt="The Boys">
+            </div>
+            <div class="card-info">
+                <h3>The Boys</h3>
+                <span class="card-meta">TV Show · Action</span>
+                <span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="paramount" data-trailer="KMxSnhOKQno">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/baEbA5el4WMbHGEBfhLJFwVXRYm.jpg" alt="Yellowjackets">
+            </div>
+            <div class="card-info">
+                <h3>Yellowjackets</h3>
+                <span class="card-meta">TV Show · Thriller</span>
+                <span class="card-platform">Paramount+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="hulu" data-trailer="N7B7bJiMYSk">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/5WxazNGKroCQxCmJIB7kMIHCK4F.jpg" alt="Shogun">
+            </div>
+            <div class="card-info">
+                <h3>Shogun</h3>
+                <span class="card-meta">TV Show · Historical</span>
+                <span class="card-platform">Hulu</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="HhesaQXLuRY">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg" alt="Breaking Bad">
+            </div>
+            <div class="card-info">
+                <h3>Breaking Bad</h3>
+                <span class="card-meta">TV Show · Crime</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── Must-See Movies ── -->
+<section class="content-row" data-section="movies">
+    <h2 class="row-title">Must-See Movies</h2>
+    <div class="row-scroll">
+
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="uYPbbksJxIg">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg" alt="Oppenheimer">
+            </div>
+            <div class="card-info">
+                <h3>Oppenheimer</h3>
+                <span class="card-meta">Movie · Drama</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="8g18jFHCLXk">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/d5NXSklpcvkmXSBqeluKNE8S9dL.jpg" alt="Dune">
+            </div>
+            <div class="card-info">
+                <h3>Dune</h3>
+                <span class="card-meta">Movie · Sci-Fi</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="JfVOs4VSpmA">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
+                    alt="Spider-Man: No Way Home">
+            </div>
+            <div class="card-info">
+                <h3>Spider-Man: No Way Home</h3>
+                <span class="card-meta">Movie · Action</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="a8Gx8wiNbs8">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/t6HIqrRAclMCA60NsSmeqe9RmNV.jpg"
+                    alt="Avatar: The Way of Water">
+            </div>
+            <div class="card-info">
+                <h3>Avatar: The Way of Water</h3>
+                <span class="card-meta">Movie · Sci-Fi</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="paramount" data-trailer="avz06PDqDbM">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/NNxYkU70HPurnNCSiCjYAmacwm.jpg" alt="Mission: Impossible 7">
+            </div>
+            <div class="card-info">
+                <h3>Mission: Impossible 7</h3>
+                <span class="card-meta">Movie · Action</span>
+                <span class="card-platform">Paramount+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="u3V5KDHRQvk">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/r2J02Z2OpNTctfOSN1Ydgpy1hkL.jpg"
+                    alt="Guardians of the Galaxy 3">
+            </div>
+            <div class="card-info">
+                <h3>Guardians Vol. 3</h3>
+                <span class="card-meta">Movie · Sci-Fi</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── New & Popular ── -->
+<section class="content-row" data-section="new">
+    <h2 class="row-title">New &amp; Popular</h2>
+    <div class="row-scroll">
+
+        <div class="content-card" data-type="show" data-platform="disney" data-trailer="aOC8E8z_ifw">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/sgl9h55I8tTOf69CVNQy9yS4Sbw.jpg" alt="The Mandalorian">
+            </div>
+            <div class="card-info">
+                <h3>The Mandalorian</h3>
+                <span class="card-meta">TV Show · Sci-Fi</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="disney" data-trailer="nW948Va-l10">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/kEl2t3OhXc3Zb9FBh1AuYzRTgZp.jpg" alt="Loki">
+            </div>
+            <div class="card-info">
+                <h3>Loki</h3>
+                <span class="card-meta">TV Show · Sci-Fi</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="4ZMrPNMpqRM">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/3Q0hd3heuWwDWpwcDkhQOA6TYWI.jpg" alt="Euphoria">
+            </div>
+            <div class="card-info">
+                <h3>Euphoria</h3>
+                <span class="card-meta">TV Show · Drama</span>
+                <span class="card-platform">Max</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="v7v1hIkYH24">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/mYLOqiStMxDK3fYZFirgrMt8z5d.jpg" alt="Rings of Power">
+            </div>
+            <div class="card-info">
+                <h3>Rings of Power</h3>
+                <span class="card-meta">TV Show · Fantasy</span>
+                <span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="hulu" data-trailer="KYBfS3kgnBk">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/2dwnYJIPtfXEDvjXUzCFvJoHEjm.jpg"
+                    alt="Only Murders in the Building">
+            </div>
+            <div class="card-info">
+                <h3>Only Murders</h3>
+                <span class="card-meta">TV Show · Comedy</span>
+                <span class="card-platform">Hulu</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="netflix" data-trailer="Y274jZs5s7s">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/7GpBnRquTPOleE0gkjFHpBcGLhJ.jpg" alt="Extraction 2">
+            </div>
+            <div class="card-info">
+                <h3>Extraction 2</h3>
+                <span class="card-meta">Movie · Action</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── Acclaimed Series ── -->
+<section class="content-row" data-section="acclaimed">
+    <h2 class="row-title">Acclaimed Series</h2>
+    <div class="row-scroll">
+
+        <div class="content-card" data-type="movie" data-platform="netflix" data-trailer="-xR_lBtEvkA">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg" alt="Glass Onion">
+            </div>
+            <div class="card-info">
+                <h3>Glass Onion</h3>
+                <span class="card-meta">Movie · Mystery</span>
+                <span class="card-platform">Netflix</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="disney" data-trailer="0webO3-mB_Q">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/59SVNwLfoMnZPPB6ukW6dlPxAdI.jpg" alt="Andor">
+            </div>
+            <div class="card-info">
+                <h3>Andor</h3>
+                <span class="card-meta">TV Show · Sci-Fi</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="LEjhY15eCx0">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg" alt="Inside Out 2">
+            </div>
+            <div class="card-info">
+                <h3>Inside Out 2</h3>
+                <span class="card-meta">Movie · Animation</span>
+                <span class="card-platform">Disney+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="movie" data-platform="prime" data-trailer="QPistGbKsbo">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/zeD4PabP6099gpE0STWJBOYFAzn.jpg" alt="The Tomorrow War">
+            </div>
+            <div class="card-info">
+                <h3>The Tomorrow War</h3>
+                <span class="card-meta">Movie · Sci-Fi</span>
+                <span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="paramount" data-trailer="MBpJSBQzf_8">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/oB4vdq1Cz0KkF9GjWdLuSZiOCZK.jpg" alt="1883">
+            </div>
+            <div class="card-info">
+                <h3>1883</h3>
+                <span class="card-meta">TV Show · Western</span>
+                <span class="card-platform">Paramount+</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="v7v1hIkYH24">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/lcul8glLRQKlQH0eRxFuQHVEQeM.jpg" alt="Severance">
+            </div>
+            <div class="card-info">
+                <h3>Severance</h3>
+                <span class="card-meta">TV Show · Mystery</span>
+                <span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+
+        <div class="content-card" data-type="show" data-platform="hulu" data-trailer="LWIZr0jYU3Y">
+            <div class="card-poster">
+                <img src="https://image.tmdb.org/t/p/w500/nPnm3DbrUCUqZCXjOBjR1hWYf77.jpg" alt="The Handmaid's Tale">
+            </div>
+            <div class="card-info">
+                <h3>The Handmaid's Tale</h3>
+                <span class="card-meta">TV Show · Dystopia</span>
+                <span class="card-platform">Hulu</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+
+<!-- ── "No results" message — shown/hidden by JS when search/filter yields nothing ── -->
+<div class="no-results" id="no-results" hidden>
+    <p>No titles match your search. Try a different keyword or filter.</p>
+</div>
+
+{% endblock %}

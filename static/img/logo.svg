@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" fill="none">
+  <!-- 
+    TitleHub logo — a play-button triangle inside a rounded square,
+    representing "all content in one hub." Uses the brand accent purple.
+  -->
+  
+  <!-- Outer rounded square — the "hub" -->
+  <rect x="2" y="2" width="32" height="32" rx="8" fill="#6c5ce7"/>
+  
+  <!-- Inner play triangle — the "title/content" -->
+  <polygon points="14,10 14,26 26,18" fill="#ffffff"/>
+</svg>

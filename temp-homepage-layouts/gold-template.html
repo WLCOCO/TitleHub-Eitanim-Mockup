@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamHub | One Subscription</title>
+    <style>
+        :root {
+            --bg-color: #05050a;
+            --accent-purple: #6b5aed;
+            --accent-teal: #00c9a7;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f9e29c 50%, #b8860b 100%);
+            --text-main: #ffffff;
+            --text-muted: #acb6e5;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            /* This creates the atmospheric lighting from your reference */
+            background-image:
+                /*How to edit the accent shapes in the background */
+                radial-gradient(circle at top right, rgba(107, 90, 237, 0.395), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(0, 201, 167, 0.35), transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-text {
+            display: inline-block;
+            line-height: 1;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-purple);
+        }
+
+        .btn-login {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 20px;
+            border-radius: 20px;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            padding: 80px 10% 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        .highlight {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sub-headline {
+            color: var(--accent-purple);
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 0;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin: 30px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--gold-gradient);
+            color: #000;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        /* --- Movie Grid --- */
+        .movie-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            padding: 40px 5%;
+            margin-top: 20px;
+        }
+
+
+
+
+        /* Mockup poster colors */
+        .p1 {
+            background: linear-gradient(to top, #000, transparent), url('https://via.placeholder.com/200x300/111');
+        }
+
+        .p2 {
+            background: linear-gradient(to top, #000, transparent), url('https://via.placeholder.com/200x300/222');
+        }
+
+        .p3 {
+            background: linear-gradient(to top, #000, transparent), url('https://via.placeholder.com/200x300/333');
+        }
+
+        .p4 {
+            background: linear-gradient(to top, #000, transparent), url('https://via.placeholder.com/200x300/111');
+        }
+
+        .p5 {
+            background: linear-gradient(to top, #000, transparent), url('https://via.placeholder.com/200x300/222');
+        }
+
+        .card span {
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .logo-img {
+            width: 36px;
+            height: 36px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="#" class="logo-link">
+                <img src="../static/img/logo-2.0.png" alt="Logo" class="logo-img">
+                <span class="logo-text">TitleHub</span>
+            </a>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Categories</a>
+            <a href="#">Premium</a>
+            <a href="#" class="btn-login">Log In</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Unify Your Entertainment.<br> The <span class="highlight">Gold</span> Standard.</h1>
+        <p class="sub-headline" >One Subscription.</p>
+        <p class="description">
+            Pick movies and episodes from Netflix, Hulu, Disney+, Max, Paramount+, Prime Video & more — all in one
+            simple plan.
+        </p>
+        <a href="#" class="cta-button">Watch Now</a>
+    </div>
+
+
+
+</body>
+
+</html>

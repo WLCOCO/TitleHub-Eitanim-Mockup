@@ -1,0 +1,215 @@
+<!-- 
+  index.html — Landing page
+  Goal: Immediately communicate what TitleHub does and push visitors
+  toward signing up. Keeps copy short so the design speaks for itself.
+-->
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- ── Hero section — the first thing every visitor sees ── -->
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title">All Your Streaming.<br><span class="highlight">One Subscription.</span></h1>
+        <p class="hero-subtitle">
+            Pick movies and episodes from Netflix, Hulu, Disney+, Max, Paramount+,
+            Prime Video &amp; more — all in one simple plan.
+        </p>
+        <div class="hero-actions">
+            <button class="btn btn-primary btn-lg" id="open-onboarding">Get Started Free</button>
+        </div>
+    </div>
+
+    <!-- Decorative gradient orbs — pure CSS, no images needed -->
+    <div class="hero-bg-orb hero-bg-orb--1" aria-hidden="true"></div>
+    <div class="hero-bg-orb hero-bg-orb--2" aria-hidden="true"></div>
+</section>
+
+<!-- ── How It Works — three clear steps ── -->
+<section class="how-it-works" id="how-it-works">
+    <h2 class="section-title">How It Works</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-icon">1</div>
+            <h3>Choose a Plan</h3>
+            <p>Pick from Basic, Standard, or Premium based on how much you watch each month.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">2</div>
+            <h3>Browse Everything</h3>
+            <p>Search movies and shows across Netflix, Disney+, Hulu, Max, Paramount+ and more — all in one place.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-icon">3</div>
+            <h3>Watch &amp; Enjoy</h3>
+            <p>Use your monthly picks to watch exactly what you want, no extra apps needed.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── Platform logos — builds trust by showing big names ── -->
+<section class="platforms-section">
+    <h2 class="section-title">All Your Favorite Platforms</h2>
+    <p class="platforms-subtitle">One subscription. Every service. No switching apps.</p>
+
+    <div class="platforms-grid">
+        <span class="platform-badge">Netflix</span>
+        <span class="platform-badge">Hulu</span>
+        <span class="platform-badge">Disney+</span>
+        <span class="platform-badge">Max</span>
+        <span class="platform-badge">Paramount+</span>
+        <span class="platform-badge">Prime Video</span>
+        <span class="platform-badge">Peacock</span>
+        <span class="platform-badge">Apple TV+</span>
+    </div>
+</section>
+
+<!-- ── Feature highlights ── -->
+<section class="features-section">
+    <h2 class="section-title">Why TitleHub?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">💰</div>
+            <h3>Save Money</h3>
+            <p>Stop paying for 5+ subscriptions. One plan covers content from every major platform.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">🎯</div>
+            <h3>Watch What You Want</h3>
+            <p>No filler. Pick exactly the movies and episodes you care about each month.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">⚡</div>
+            <h3>Simple Interface</h3>
+            <p>One search, one library. No switching between apps to find something to watch.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon" aria-hidden="true">📱</div>
+            <h3>Any Device</h3>
+            <p>Watch on your phone, tablet, laptop, or smart TV — anywhere, anytime.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA banner — final push before the footer ── -->
+<section class="cta-banner">
+    <h2>Ready to simplify your streaming?</h2>
+    <p>Join thousands of viewers who ditched the multi-subscription mess.</p>
+    <a href="#" class="btn btn-primary btn-lg" id="cta-start">Start Watching Today</a>
+</section>
+
+<!-- ── Onboarding Modal Overlay ── -->
+<div class="ob-overlay" id="ob-overlay" role="dialog" aria-modal="true" aria-label="Get started with TitleHub" hidden>
+    <div class="ob-modal">
+
+        <button class="ob-close" id="ob-close" aria-label="Close">&times;</button>
+
+        <!-- Wordmark at top -->
+        <div class="ob-wordmark">TitleHub</div>
+
+        <!-- Progress dots -->
+        <div class="ob-progress">
+            <span class="ob-dot ob-dot--active"></span>
+            <span class="ob-dot"></span>
+            <span class="ob-dot"></span>
+            <span class="ob-dot"></span>
+        </div>
+
+        <!-- Step 1: Account -->
+        <div class="ob-step ob-step--active" id="ob-step-1">
+            <h2 class="ob-title">Create Your Account</h2>
+            <p class="ob-desc">Join TitleHub to start streaming. Fields are optional — press <strong>Sign Up</strong> to
+                continue.</p>
+            <form class="ob-signup-form" id="ob-signup-form" autocomplete="off" novalidate>
+                <div class="ob-field">
+                    <label for="ob-field-username">Username</label>
+                    <input type="text" id="ob-field-username" placeholder="Choose a username" autocomplete="off">
+                </div>
+                <div class="ob-field">
+                    <label for="ob-field-email">Email Address</label>
+                    <input type="email" id="ob-field-email" placeholder="you@example.com" autocomplete="off">
+                </div>
+                <div class="ob-field">
+                    <label for="ob-field-password">Password</label>
+                    <input type="password" id="ob-field-password" placeholder="Create a password"
+                        autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full ob-submit-btn" id="ob-btn-signup">Sign Up</button>
+                <p class="ob-legal">Already have an account? <a href="/login?onboard=1" class="ob-link">Log in</a></p>
+            </form>
+        </div>
+
+        <!-- Step 2: Plan -->
+        <div class="ob-step" id="ob-step-2">
+            <h2 class="ob-title">Choose Your Plan</h2>
+            <p class="ob-desc">Pick how many platforms you want to stream from.</p>
+            <div class="ob-plans-grid">
+                <div class="ob-plan-card" data-plan="starter" data-limit="3">
+                    <h3>Starter</h3>
+                    <div class="ob-plan-price">$24<span class="ob-cents">.99</span><span class="ob-per">/mo</span></div>
+                    <p class="ob-plan-desc">Up to 3 platforms</p>
+                </div>
+                <div class="ob-plan-card ob-plan-featured" data-plan="standard" data-limit="4">
+                    <span class="ob-plan-badge">Most Popular</span>
+                    <h3>Standard</h3>
+                    <div class="ob-plan-price">$32<span class="ob-cents">.99</span><span class="ob-per">/mo</span></div>
+                    <p class="ob-plan-desc">Up to 4 platforms</p>
+                </div>
+                <div class="ob-plan-card" data-plan="unlimited" data-limit="6">
+                    <h3>Unlimited</h3>
+                    <div class="ob-plan-price">$41<span class="ob-cents">.99</span><span class="ob-per">/mo</span></div>
+                    <p class="ob-plan-desc">All platforms</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Platform Selection -->
+        <div class="ob-step" id="ob-step-3">
+            <h2 class="ob-title">Pick Your Platforms</h2>
+            <p class="ob-desc">Select up to <strong id="ob-limit-num">4</strong> streaming services.</p>
+            <div class="ob-platforms-grid" id="ob-platforms-grid"></div>
+            <button class="btn btn-primary btn-full" id="ob-confirm-plats" disabled>Continue</button>
+        </div>
+
+        <!-- Step 4: Payment -->
+        <div class="ob-step" id="ob-step-4">
+            <h2 class="ob-title">Secure Checkout</h2>
+            <p class="ob-desc">Start your 7-day free trial today. Cancel anytime before it ends.</p>
+            <form class="ob-payment-form" id="ob-payment-form" autocomplete="off" novalidate>
+                <div class="ob-field">
+                    <label>Cardholder Name</label>
+                    <input type="text" placeholder="Full name on card" autocomplete="off">
+                </div>
+                <div class="ob-field">
+                    <label>Card Number</label>
+                    <div class="ob-card-row">
+                        <input type="text" placeholder="1234  5678  9012  3456" maxlength="19" autocomplete="off"
+                            inputmode="numeric" class="ob-card-num-input">
+                        <span class="ob-card-brand">💳</span>
+                    </div>
+                </div>
+                <div class="ob-field-row">
+                    <div class="ob-field">
+                        <label>Expiry Date</label>
+                        <input type="text" placeholder="MM / YY" maxlength="7" autocomplete="off" inputmode="numeric">
+                    </div>
+                    <div class="ob-field">
+                        <label>Security Code</label>
+                        <input type="text" placeholder="CVV" maxlength="4" autocomplete="off" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="ob-field">
+                    <label>Billing ZIP / Postal Code</label>
+                    <input type="text" placeholder="Postal code" maxlength="10" autocomplete="off">
+                </div>
+                <button type="submit" class="btn btn-primary btn-full ob-submit-btn">Start Free Trial</button>
+                <p class="ob-legal">🔒 256-bit SSL encryption. Your 7-day free trial starts today. You won't be charged
+                    until the trial ends. Cancel anytime in account settings. By continuing you agree to our Terms of
+                    Service.</p>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
