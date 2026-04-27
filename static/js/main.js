@@ -219,12 +219,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // after payment so browse.html can filter by platform.
 
     const PLATFORMS = [
-        { id: "netflix", label: "Netflix", color: "#e50914" },
-        { id: "hulu", label: "Hulu", color: "#1ce783" },
-        { id: "disney", label: "Disney+", color: "#113ccf" },
-        { id: "max", label: "Max", color: "#6c2dc7" },
-        { id: "paramount", label: "Paramount+", color: "#0064ff" },
-        { id: "prime", label: "Prime Video", color: "#00a8e0" },
+        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N" },
+        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H" },
+        { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+" },
+        { id: "max", label: "Max", color: "#6c2dc7", abbr: "M" },
+        { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+" },
+        { id: "prime", label: "Prime Video", color: "#00a8e0", abbr: "PV" },
+        { id: "peacock", label: "Peacock", color: "#e8501a", abbr: "PC" },
+        { id: "appletv", label: "Apple TV+", color: "#444444", abbr: "TV+" },
+        { id: "crunchyroll", label: "Crunchyroll", color: "#f47521", abbr: "CR" },
+        { id: "espnplus", label: "ESPN+", color: "#cc0000", abbr: "E+" },
+        { id: "foxsports", label: "Fox Sports", color: "#0b3d91", abbr: "FOX" },
+        { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo" },
     ];
 
     const obOverlay = document.getElementById("ob-overlay");
@@ -265,6 +271,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (openObBtn) openObBtn.addEventListener("click", obOpen);
     if (ctaStartBtn) ctaStartBtn.addEventListener("click", function (e) { e.preventDefault(); obOpen(); });
     if (obCloseBtn) obCloseBtn.addEventListener("click", obCloseFn);
+    if (obOverlay) {
+        obOverlay.addEventListener("click", (e) => {
+            if (e.target === obOverlay) obCloseFn();
+        });
+    }
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && obOverlay && !obOverlay.hidden) {
+            obCloseFn();
+        }
+    });
 
     // Auto-open when arriving from signup/login nav link (?onboard=1)
     if (new URLSearchParams(window.location.search).get("onboard") === "1") {
@@ -298,39 +314,45 @@ document.addEventListener("DOMContentLoaded", () => {
         grid.innerHTML = "";
 
         PLATFORMS.forEach(p => {
-            const lbl = document.createElement("label");
-            lbl.className = "ob-platform-option";
-            lbl.innerHTML = `
-                <input type="checkbox" class="ob-plat-cb" value="${p.id}">
-                <span class="ob-platform-inner">
-                    <span class="ob-plat-dot" style="background:${p.color}"></span>
-                    <span class="ob-plat-name">${p.label}</span>
-                    <span class="ob-plat-tick">✓</span>
-                </span>`;
-            const cb = lbl.querySelector(".ob-plat-cb");
-            cb.addEventListener("change", () => {
-                if (cb.checked) {
-                    if (obSelected.length >= obLimit) { cb.checked = false; return; }
-                    obSelected.push(p.id);
-                } else {
+            const card = document.createElement("div");
+            card.className = "ob-plat-card";
+            card.dataset.id = p.id;
+            card.innerHTML = `
+                <div class="ob-plat-logo" style="background:${p.color}"> 
+                    <span class="ob-plat-abbr">${p.abbr}</span>
+                </div>
+                <span class="ob-plat-label">${p.label}</span>
+                <span class="ob-plat-check" aria-hidden="true">✓</span>`;  //Add href for div elements and change div to a tags and use a list at the top to make a url dict
+            card.addEventListener("click", () => {
+                const isSelected = obSelected.includes(p.id);
+                if (isSelected) {
                     obSelected = obSelected.filter(x => x !== p.id);
+                } else {
+                    if (obSelected.length >= obLimit) return;
+                    obSelected.push(p.id);
                 }
                 syncPlatformStates();
             });
-            grid.appendChild(lbl);
+            grid.appendChild(card);
         });
+
+        // Wire carousel arrow buttons
+        const prevBtn = document.getElementById("ob-plat-prev");
+        const nextBtn = document.getElementById("ob-plat-next");
+        const SCROLL_AMOUNT = 300;
+        if (prevBtn) prevBtn.onclick = () => grid.scrollBy({ left: -SCROLL_AMOUNT, behavior: "smooth" });
+        if (nextBtn) nextBtn.onclick = () => grid.scrollBy({ left: SCROLL_AMOUNT, behavior: "smooth" });
+
+        syncPlatformStates();
     }
 
     function syncPlatformStates() {
         const atLimit = obSelected.length >= obLimit;
-        document.querySelectorAll(".ob-plat-cb").forEach(cb => {
-            const opt = cb.closest(".ob-platform-option");
-            if (!cb.checked) {
-                cb.disabled = atLimit;
-                opt.classList.toggle("ob-platform-option--dim", atLimit);
-            } else {
-                opt.classList.remove("ob-platform-option--dim");
-            }
+        document.querySelectorAll(".ob-plat-card").forEach(card => {
+            const id = card.dataset.id;
+            const isSelected = obSelected.includes(id);
+            card.classList.toggle("ob-plat-card--selected", isSelected);
+            card.classList.toggle("ob-plat-card--dim", !isSelected && atLimit);
         });
         const confirmBtn = document.getElementById("ob-confirm-plats");
         if (confirmBtn) confirmBtn.disabled = obSelected.length === 0;
