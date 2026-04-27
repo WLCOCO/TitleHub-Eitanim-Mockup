@@ -50,12 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     // Hide filter pills for platforms the user didn't select,
     // then store the selection so filterContent can use it.
     let activePlatforms = null;
+    const devMode = sessionStorage.getItem("th_dev_mode") === "1";
     if (searchInput) {
         try {
             activePlatforms = JSON.parse(sessionStorage.getItem("th_platforms") || "null");
         } catch (e) { activePlatforms = null; }
 
-        if (activePlatforms && activePlatforms.length > 0) {
+        // In dev mode all platform pills stay visible; otherwise hide unselected ones
+        if (!devMode && activePlatforms && activePlatforms.length > 0) {
             filterPills.forEach(pill => {
                 const f = pill.dataset.filter;
                 if (f && f !== "all" && f !== "movie" && f !== "show") {
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 platform.includes(query);
 
             const matchesPlatformSelection =
-                !activePlatforms || activePlatforms.includes(platform);
+                devMode || !activePlatforms || activePlatforms.includes(platform);
 
             const isVisible = matchesFilter && matchesSearch && matchesPlatformSelection;
             card.style.display = isVisible ? "" : "none";
@@ -369,8 +371,73 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Trigger initial filter on browse page so only selected-platform cards show
-    if (activePlatforms && activePlatforms.length > 0) {
+    if (activePlatforms && activePlatforms.length > 0 || devMode) {
         filterContent();
     }
+
+
+    // ── 7. Dev-mode secret toggle ────────────────────
+    // Type "showme" anywhere on the page (not inside an input/textarea)
+    // to instantly bypass the login flow and show all platforms at once.
+    // Type "showme" again to turn it off and return to the home page.
+    // A small toast confirms the state change.
+
+    (function () {
+        const CODE = "showme";
+        let buf = "";
+
+        function devToast(msg) {
+            const el = document.createElement("div");
+            el.textContent = msg;
+            Object.assign(el.style, {
+                position: "fixed",
+                bottom: "24px",
+                right: "24px",
+                background: "#1a1a2e",
+                color: "#a78bfa",
+                border: "1px solid #7c3aed",
+                borderRadius: "8px",
+                padding: "10px 18px",
+                fontFamily: "monospace",
+                fontSize: "13px",
+                zIndex: "9999",
+                pointerEvents: "none",
+                opacity: "1",
+                transition: "opacity 0.5s ease",
+            });
+            document.body.appendChild(el);
+            setTimeout(() => { el.style.opacity = "0"; }, 2000);
+            setTimeout(() => el.remove(), 2600);
+        }
+
+        document.addEventListener("keydown", function (e) {
+            // Ignore keypresses that land inside form fields
+            const tag = document.activeElement ? document.activeElement.tagName : "";
+            if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT") return;
+
+            // Only single printable characters advance the buffer
+            if (e.key.length !== 1) { buf = ""; return; }
+            buf = (buf + e.key.toLowerCase()).slice(-CODE.length);
+
+            if (buf === CODE) {
+                buf = "";
+                const isOn = sessionStorage.getItem("th_dev_mode") === "1";
+                if (isOn) {
+                    sessionStorage.removeItem("th_dev_mode");
+                    sessionStorage.removeItem("th_platforms");
+                    devToast("Dev mode OFF");
+                    setTimeout(() => window.location.replace("/"), 700);
+                } else {
+                    sessionStorage.setItem("th_dev_mode", "1");
+                    devToast("Dev mode ON — all platforms unlocked");
+                    if (window.location.pathname === "/browse") {
+                        setTimeout(() => window.location.reload(), 700);
+                    } else {
+                        setTimeout(() => { window.location.href = "/browse"; }, 700);
+                    }
+                }
+            }
+        });
+    }());
 
 });

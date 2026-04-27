@@ -11,6 +11,15 @@
 <!-- Redirect to home on refresh or if no platforms selected (handled instantly before render) -->
 <script>
     (function () {
+        // Dev-mode bypass — type "showme" anywhere on the page to activate.
+        // When active, all platforms are visible and the login flow is skipped.
+        if (sessionStorage.getItem("th_dev_mode") === "1") {
+            sessionStorage.setItem("th_platforms", JSON.stringify([
+                "netflix", "hulu", "disney", "max", "paramount", "prime",
+                "peacock", "appletv", "crunchyroll", "espnplus", "foxsports", "fubotv"
+            ]));
+            return; // skip the redirect guard entirely
+        }
         var nav = window.performance && performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
         if (!nav || nav.type === "reload") {
             sessionStorage.removeItem("th_platforms");
@@ -66,7 +75,7 @@
 
         <div class="content-card" data-type="show" data-platform="netflix" data-trailer="dqGKkbjVQiE">
             <div class="card-poster">
-                <img src="https://image.tmdb.org/t/p/w500/9DpB6wC1iY3C4K6bZXjBzDajRNL.jpg" alt="Wednesday">
+                <img src="https://www.themoviedb.org/t/p/w1280/z7TQV2AwI2bLYyQ68QHxfAPfaJZ.jpg" alt="Wednesday">
             </div>
             <div class="card-info">
                 <h3>Wednesday</h3>
@@ -77,7 +86,8 @@
 
         <div class="content-card" data-type="movie" data-platform="max" data-trailer="pBk4NYhWNMM">
             <div class="card-poster">
-                <img src="https://image.tmdb.org/t/p/w500/iuFNMS8vlzsHMh3sEQT4O6bSJPT.jpg" alt="Barbie">
+                <img src="https://media.themoviedb.org/t/p/w94_and_h141_face/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg"
+                    alt="Barbie">
             </div>
             <div class="card-info">
                 <h3>Barbie</h3>
@@ -206,7 +216,8 @@
 
         <div class="content-card" data-type="show" data-platform="hulu" data-trailer="N7B7bJiMYSk">
             <div class="card-poster">
-                <img src="https://image.tmdb.org/t/p/w500/5WxazNGKroCQxCmJIB7kMIHCK4F.jpg" alt="Shogun">
+                <img src="https://media.themoviedb.org/t/p/w300_and_h450_face/7O4iVfOMQmdCSxhOg1WnzG1AgYT.jpg"
+                    alt="Shogun">
             </div>
             <div class="card-info">
                 <h3>Shogun</h3>
@@ -1437,6 +1448,258 @@
     </div>
 </section>
 
+
+<!-- ── 2024 Blockbusters ── -->
+<section class="content-row" data-section="2024">
+    <h2 class="row-title">2024 Blockbusters</h2>
+    <div class="row-scroll">
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="73_1biulkYk">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg"
+                    alt="Deadpool &amp; Wolverine"></div>
+            <div class="card-info">
+                <h3>Deadpool &amp; Wolverine</h3><span class="card-meta">Movie · Action</span><span
+                    class="card-platform">Disney+</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="hulu" data-trailer="qtSNMHmJlKA">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/b33nnKl1GSFbao4l3fZDDqsMx0F.jpg"
+                    alt="Alien: Romulus"></div>
+            <div class="card-info">
+                <h3>Alien: Romulus</h3><span class="card-meta">Movie · Sci-Fi</span><span
+                    class="card-platform">Hulu</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="peacock" data-trailer="hKHZo0JsAm0">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/qIRCKbkxomAc5KpB2dJOTBB3aBW.jpg"
+                    alt="Twisters"></div>
+            <div class="card-info">
+                <h3>Twisters</h3><span class="card-meta">Movie · Action</span><span class="card-platform">Peacock</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="XJnEBOzOBug">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/iADOJ8Zymht2JPMoy3R7xceZprc.jpg"
+                    alt="Furiosa"></div>
+            <div class="card-info">
+                <h3>Furiosa</h3><span class="card-meta">Movie · Action</span><span class="card-platform">Max</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="disney" data-trailer="XtHKFW_Oquk">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/gKkl37BQuKTanygYQG1pyYgLVgf.jpg"
+                    alt="Kingdom of the Planet of the Apes"></div>
+            <div class="card-info">
+                <h3>Planet of the Apes</h3><span class="card-meta">Movie · Sci-Fi</span><span
+                    class="card-platform">Disney+</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="netflix" data-trailer="V7n3t3A5bhg">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/oGythE98MYleE6mZlGs5oBGkux1.jpg"
+                    alt="Bad Boys: Ride or Die"></div>
+            <div class="card-info">
+                <h3>Bad Boys: Ride or Die</h3><span class="card-meta">Movie · Action</span><span
+                    class="card-platform">Netflix</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="pA8ZKFi_b2Y">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/AnsSKR2T0p5Jfc6Z0rBuXkjHXvD.jpg"
+                    alt="Fallout"></div>
+            <div class="card-info">
+                <h3>Fallout</h3><span class="card-meta">TV Show · Sci-Fi</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="E7AjAw3ZFl4">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/tHXMFT3A1r4OGqQIgTOGCyGJHGZ.jpg"
+                    alt="3 Body Problem"></div>
+            <div class="card-info">
+                <h3>3 Body Problem</h3><span class="card-meta">TV Show · Sci-Fi</span><span
+                    class="card-platform">Netflix</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="7VHJhFlqRDs">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/cPqEPbpxJpWpW9jTQBHegSxqtc7.jpg"
+                    alt="Dark Matter"></div>
+            <div class="card-info">
+                <h3>Dark Matter</h3><span class="card-meta">TV Show · Thriller</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="SVS_hl0-T2g">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/uJOeRZmHMokm65aEjqMkxFJGthx.jpg"
+                    alt="The Penguin"></div>
+            <div class="card-info">
+                <h3>The Penguin</h3><span class="card-meta">TV Show · Crime</span><span class="card-platform">Max</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Prestige Series ── -->
+<section class="content-row" data-section="prestige">
+    <h2 class="row-title">Prestige Series</h2>
+    <div class="row-scroll">
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="s9APLXM9Ei8">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/hlLXt2tOPT6RRnjiUmoxyG1LTFi.jpg"
+                    alt="Chernobyl"></div>
+            <div class="card-info">
+                <h3>Chernobyl</h3><span class="card-meta">TV Show · Drama</span><span class="card-platform">Max</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="CDrNd4MPTBE">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/zU0htwkhNvBQdVSIKB9s6hgVeFK.jpg"
+                    alt="The Queen's Gambit"></div>
+            <div class="card-info">
+                <h3>The Queen's Gambit</h3><span class="card-meta">TV Show · Drama</span><span
+                    class="card-platform">Netflix</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="VIMy5ggWFHA">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/qJdfO3ahgAMf7oBWQnlpnVVpqTf.jpg"
+                    alt="Invincible"></div>
+            <div class="card-info">
+                <h3>Invincible</h3><span class="card-meta">TV Show · Action</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="4Ge7U4H9SFg">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/abf8tHznhSotVe0xkFloisl8NQS.jpg"
+                    alt="Arcane"></div>
+            <div class="card-info">
+                <h3>Arcane</h3><span class="card-meta">TV Show · Animation</span><span
+                    class="card-platform">Netflix</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="netflix" data-trailer="8WFO5SBLPWI">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/lMlXJXhJRt1yiGKKyqKXxGW8tJQ.jpg"
+                    alt="The Diplomat"></div>
+            <div class="card-info">
+                <h3>The Diplomat</h3><span class="card-meta">TV Show · Drama</span><span
+                    class="card-platform">Netflix</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="max" data-trailer="aaJMJQjQ4Mg">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/46P4KHglBBbkXCpvMfsMTiGbVTt.jpg"
+                    alt="Mare of Easttown"></div>
+            <div class="card-info">
+                <h3>Mare of Easttown</h3><span class="card-meta">TV Show · Crime</span><span
+                    class="card-platform">Max</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="N8NMFG6JcG4">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/29TmZmEGCnWQaqdx0G5n8I5LPCl.jpg"
+                    alt="Fleabag"></div>
+            <div class="card-info">
+                <h3>Fleabag</h3><span class="card-meta">TV Show · Comedy</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="prime" data-trailer="b1-2-5e_JxU">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/mS2xKilH1Dv6VHG9e7T3sQk4RVI.jpg"
+                    alt="Gen V"></div>
+            <div class="card-info">
+                <h3>Gen V</h3><span class="card-meta">TV Show · Action</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="appletv" data-trailer="p6UJiLBDQYk">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/oMnUGqS4xhNm0BkRtBovbN5h8yR.jpg"
+                    alt="Slow Horses"></div>
+            <div class="card-info">
+                <h3>Slow Horses</h3><span class="card-meta">TV Show · Thriller</span><span class="card-platform">Apple
+                    TV+</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="show" data-platform="appletv" data-trailer="uo2VfOerLaU">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/nHfqLF5PNWZ7bVJ2PsmgxQJzBLV.jpg"
+                    alt="For All Mankind"></div>
+            <div class="card-info">
+                <h3>For All Mankind</h3><span class="card-meta">TV Show · Sci-Fi</span><span class="card-platform">Apple
+                    TV+</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Hidden Gems ── -->
+<section class="content-row" data-section="gems">
+    <h2 class="row-title">Hidden Gems</h2>
+    <div class="row-scroll">
+        <div class="content-card" data-type="movie" data-platform="peacock" data-trailer="uqMNHNHWOFg">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/oBgWY00bEFeZ67N8Qf8NN2t7hEm.jpg"
+                    alt="Nobody"></div>
+            <div class="card-info">
+                <h3>Nobody</h3><span class="card-meta">Movie · Action</span><span class="card-platform">Peacock</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="raHaistNVsM">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/gb3HYxmxmIBi5F0JGpHIFJYAcJl.jpg"
+                    alt="The Suicide Squad"></div>
+            <div class="card-info">
+                <h3>The Suicide Squad</h3><span class="card-meta">Movie · Action</span><span
+                    class="card-platform">Max</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="max" data-trailer="JFcLFLwM3hM">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/vSignXKDeNiSGiGJJQZjUPiZ5jJ.jpg"
+                    alt="Pearl"></div>
+            <div class="card-info">
+                <h3>Pearl</h3><span class="card-meta">Movie · Horror</span><span class="card-platform">Max</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="hulu" data-trailer="FqU1mxSdPbU">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/5ik12ASEAfM27vqVJFgSGjgJHCE.jpg"
+                    alt="Barbarian"></div>
+            <div class="card-info">
+                <h3>Barbarian</h3><span class="card-meta">Movie · Horror</span><span class="card-platform">Hulu</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="paramount" data-trailer="GFDalEgNAfU">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/4WMotGKYMSHQEgSHjhRH4UrSNwp.jpg"
+                    alt="Bodies Bodies Bodies"></div>
+            <div class="card-info">
+                <h3>Bodies Bodies Bodies</h3><span class="card-meta">Movie · Comedy</span><span
+                    class="card-platform">Paramount+</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="peacock" data-trailer="AhKQx0G1seo">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/VHSzNBTAiNznt6e3hcSMGLfAcIP.jpg"
+                    alt="The Holdovers"></div>
+            <div class="card-info">
+                <h3>The Holdovers</h3><span class="card-meta">Movie · Drama</span><span
+                    class="card-platform">Peacock</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="prime" data-trailer="tL8SX3JHpOE">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/76AKQPdH3M8cvsFR9K8JsOzCkuh.jpg"
+                    alt="Air"></div>
+            <div class="card-info">
+                <h3>Air</h3><span class="card-meta">Movie · Drama</span><span class="card-platform">Prime Video</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="peacock" data-trailer="oBo2TiNuenE">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/gOnkqHHvector5EaFR2wAEA6aTbp.jpg"
+                    alt="Cocaine Bear"></div>
+            <div class="card-info">
+                <h3>Cocaine Bear</h3><span class="card-meta">Movie · Comedy</span><span
+                    class="card-platform">Peacock</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="peacock" data-trailer="EhOHFRdBjXg">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/6FqBLm4VrpOHTIMBiDzVtZxI38u.jpg"
+                    alt="M3GAN"></div>
+            <div class="card-info">
+                <h3>M3GAN</h3><span class="card-meta">Movie · Horror</span><span class="card-platform">Peacock</span>
+            </div>
+        </div>
+        <div class="content-card" data-type="movie" data-platform="prime" data-trailer="m-I42XtBBCU">
+            <div class="card-poster"><img src="https://image.tmdb.org/t/p/w500/uDgDxUAbCxuJfvvYHa2cBCjmPlA.jpg"
+                    alt="Saltburn"></div>
+            <div class="card-info">
+                <h3>Saltburn</h3><span class="card-meta">Movie · Thriller</span><span class="card-platform">Prime
+                    Video</span>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- ── "No results" message — shown/hidden by JS when search/filter yields nothing ── -->
 <div class="no-results" id="no-results" hidden>
