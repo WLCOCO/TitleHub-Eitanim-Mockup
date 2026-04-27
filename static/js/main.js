@@ -221,18 +221,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // after payment so browse.html can filter by platform.
 
     const PLATFORMS = [
-        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N" },
-        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H" },
-        { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+" },
-        { id: "max", label: "Max", color: "#6c2dc7", abbr: "M" },
-        { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+" },
-        { id: "prime", label: "Prime Video", color: "#00a8e0", abbr: "PV" },
-        { id: "peacock", label: "Peacock", color: "#e8501a", abbr: "PC" },
-        { id: "appletv", label: "Apple TV+", color: "#444444", abbr: "TV+" },
-        { id: "crunchyroll", label: "Crunchyroll", color: "#f47521", abbr: "CR" },
-        { id: "espnplus", label: "ESPN+", color: "#cc0000", abbr: "E+" },
-        { id: "foxsports", label: "Fox Sports", color: "#0b3d91", abbr: "FOX" },
-        { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo" },
+        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/netflix.svg" },
+        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/hulu.svg" },
+        { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/disneyplus.svg" },
+        { id: "max", label: "Max", color: "#6c2dc7", abbr: "M", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/max.svg" },
+        { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/paramount.svg" },
+        { id: "prime", label: "Prime Video", color: "#00a8e0", abbr: "PV", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/amazonprimevideo.svg" },
+        { id: "peacock", label: "Peacock", color: "#e8501a", abbr: "PC", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/peacock.svg" },
+        { id: "appletv", label: "Apple TV+", color: "#444444", abbr: "TV+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/appletv.svg" },
+        { id: "crunchyroll", label: "Crunchyroll", color: "#f47521", abbr: "CR", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/crunchyroll.svg" },
+        { id: "espnplus", label: "ESPN+", color: "#cc0000", abbr: "E+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/espn.svg" },
+        { id: "foxsports", label: "Fox Sports", color: "#0b3d91", abbr: "FOX", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fox.svg" },
+        { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fubo.svg" },
     ];
 
     const obOverlay = document.getElementById("ob-overlay");
@@ -320,8 +320,8 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "ob-plat-card";
             card.dataset.id = p.id;
             card.innerHTML = `
-                <div class="ob-plat-logo" style="background:${p.color}"> 
-                    <span class="ob-plat-abbr">${p.abbr}</span>
+                <div class="ob-plat-logo">
+                    <img src="${p.logo}" alt="${p.label} logo" class="ob-plat-img">
                 </div>
                 <span class="ob-plat-label">${p.label}</span>
                 <span class="ob-plat-check" aria-hidden="true">✓</span>`;  //Add href for div elements and change div to a tags and use a list at the top to make a url dict
