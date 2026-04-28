@@ -367,7 +367,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         sessionStorage.setItem("th_platforms", JSON.stringify(obSelected));
         sessionStorage.setItem("th_plan", obPlan);
-        window.location.href = "/browse";
+        window.location.href = "browse.html";
     });
 
     // Trigger initial filter on browse page so only selected-platform cards show
@@ -426,14 +426,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     sessionStorage.removeItem("th_dev_mode");
                     sessionStorage.removeItem("th_platforms");
                     devToast("Dev mode OFF");
-                    setTimeout(() => window.location.replace("/"), 700);
+                    setTimeout(() => window.location.replace("index.html"), 700);
                 } else {
                     sessionStorage.setItem("th_dev_mode", "1");
                     devToast("Dev mode ON — all platforms unlocked");
-                    if (window.location.pathname === "/browse") {
+                    const path = window.location.pathname;
+                    if (path.endsWith("/browse.html") || path === "/browse") {
                         setTimeout(() => window.location.reload(), 700);
                     } else {
-                        setTimeout(() => { window.location.href = "/browse"; }, 700);
+                        setTimeout(() => { window.location.href = "browse.html"; }, 700);
                     }
                 }
             }

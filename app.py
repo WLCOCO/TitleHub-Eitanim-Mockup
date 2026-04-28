@@ -27,10 +27,22 @@ def home():
     return render_template("index.html")
 
 
+@app.route("/index.html")
+def home_html():
+    """Compatibility route so static-style links work in Flask dev mode."""
+    return redirect(url_for("home"))
+
+
 @app.route("/pricing")
 def pricing():
     """Shows the subscription tiers so users can compare plans."""
     return render_template("pricing.html")
+
+
+@app.route("/pricing.html")
+def pricing_html():
+    """Compatibility route so static-style links work in Flask dev mode."""
+    return redirect(url_for("pricing"))
 
 
 # ──────────────────────────────────────────────
@@ -43,10 +55,22 @@ def login():
     return render_template("login.html")
 
 
+@app.route("/login.html")
+def login_html():
+    """Compatibility route so static-style links work in Flask dev mode."""
+    return redirect(url_for("login"))
+
+
 @app.route("/signup")
 def signup():
     """Signup page — directs visitors to the onboarding modal flow."""
     return render_template("signup.html")
+
+
+@app.route("/signup.html")
+def signup_html():
+    """Compatibility route so static-style links work in Flask dev mode."""
+    return redirect(url_for("signup"))
 
 
 @app.route("/guest")
@@ -76,6 +100,12 @@ def browse():
     Platform selection is handled client-side via sessionStorage.
     """
     return render_template("browse.html")
+
+
+@app.route("/browse.html")
+def browse_html():
+    """Compatibility route so static-style links work in Flask dev mode."""
+    return redirect(url_for("browse"))
 
 
 # ──────────────────────────────────────────────

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TitleHub — All Your Streaming, One Place</title>
+
+    <!-- Google Fonts — Inter for clean UI text, Outfit for headings -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Site-wide styles -->
+    <link rel="stylesheet" href="static/css/main.css">
+</head>
+
+<body>
+
+    <!-- ── Navigation ── -->
+    <header class="site-header">
+        <nav class="nav-container">
+            <!-- Logo + wordmark link back to home -->
+            <a href="index.html" class="logo-link">
+                <img src="static/img/logo.svg" alt="TitleHub logo" class="logo-img">
+                <span class="logo-text">TitleHub</span>
+            </a>
+
+            <!-- Hamburger toggle for mobile — controlled by JS -->
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+                <span class="hamburger"></span>
+            </button>
+
+            <!-- Main nav links -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="browse.html">Browse</a></li>
+                <li><a href="login.html" class="btn btn-outline btn-sm">Log In</a></li>
+                <li><a href="signup.html" class="btn btn-primary btn-sm">Sign Up</a></li>
+</ul>
+        </nav>
+    </header><!-- ── Page-specific content injected here ── -->
+    <main>
+        <section class="pricing-hero">
+    <h1 class="section-title">Simple, Transparent Pricing</h1>
+    <p class="pricing-subtitle">Pick a plan that fits how you watch. Upgrade or cancel anytime.</p>
+</section>
+
+<section class="pricing-section">
+    <div class="pricing-grid">
+
+        <!-- Starter tier — 3 platforms -->
+        <div class="pricing-card">
+            <h3 class="plan-name">Starter</h3>
+            <div class="plan-price"><span class="price-dollar">$</span>24<span class="price-cents">.99</span><span
+                    class="price-period">/mo</span></div>
+            <ul class="plan-features">
+                <li>Access to 3 platforms</li>
+                <li>Unlimited movies &amp; episodes</li>
+                <li>Watch on 1 device</li>
+                <li>1080p streaming</li>
+                <li>Cancel anytime</li>
+            </ul>
+            <a href="signup.html" class="btn btn-outline btn-full">Choose Starter</a>
+        </div>
+
+        <!-- Standard tier — 4 platforms, highlighted as best value -->
+        <div class="pricing-card pricing-card--featured">
+            <span class="plan-badge">Most Popular</span>
+            <h3 class="plan-name">Standard</h3>
+            <div class="plan-price"><span class="price-dollar">$</span>32<span class="price-cents">.99</span><span
+                    class="price-period">/mo</span></div>
+            <ul class="plan-features">
+                <li>Access to 4 platforms</li>
+                <li>Unlimited movies &amp; episodes</li>
+                <li>Watch on 3 devices</li>
+                <li>1080p streaming</li>
+                <li>Cancel anytime</li>
+            </ul>
+            <a href="signup.html" class="btn btn-primary btn-full">Choose Standard</a>
+        </div>
+
+        <!-- Unlimited tier — all platforms -->
+        <div class="pricing-card">
+            <h3 class="plan-name">Unlimited</h3>
+            <div class="plan-price"><span class="price-dollar">$</span>41<span class="price-cents">.99</span><span
+                    class="price-period">/mo</span></div>
+            <ul class="plan-features">
+                <li>Unlimited platform access</li>
+                <li>Unlimited movies &amp; episodes</li>
+                <li>Watch on 5 devices</li>
+                <li>4K + HDR streaming</li>
+                <li>Cancel anytime</li>
+            </ul>
+            <a href="signup.html" class="btn btn-outline btn-full">Choose Unlimited</a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ── FAQ to reduce signup friction ── -->
+<section class="faq-section">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="faq-list">
+        <details class="faq-item">
+            <summary>How does TitleHub work with other streaming services?</summary>
+            <p>We partner with major platforms so you can pick individual titles from any of them. You don't need
+                separate subscriptions — your TitleHub plan covers access to content across all platforms.</p>
+        </details>
+        <details class="faq-item">
+            <summary>Can I switch plans later?</summary>
+            <p>Absolutely. You can upgrade or downgrade your plan at any time. Changes take effect at the start of your
+                next billing cycle.</p>
+        </details>
+        <details class="faq-item">
+            <summary>What happens if I use all my monthly picks?</summary>
+            <p>You can still browse and add titles to your watchlist. Your picks reset at the beginning of each month.
+            </p>
+        </details>
+        <details class="faq-item">
+            <summary>Is there a free trial?</summary>
+            <p>New users get a 7-day free trial on any plan. Cancel before the trial ends and you won't be charged.</p>
+        </details>
+    </div>
+</section>
+    </main>
+
+    <!-- ── Footer ── -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <p>&copy; 2026 TitleHub. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <!-- Site-wide interactivity -->
+    <script src="static/js/main.js">
+    </script>
+</body>
+
+</html>

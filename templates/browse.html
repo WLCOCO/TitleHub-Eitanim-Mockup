@@ -20,18 +20,8 @@
             ]));
             return; // skip the redirect guard entirely
         }
-        var nav = window.performance && performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
-        if (!nav || nav.type === "reload") {
-            sessionStorage.removeItem("th_platforms");
-            sessionStorage.removeItem("th_plan");
-            window.location.replace("/");
-            return;
-        }
-        var platforms;
-        try { platforms = JSON.parse(sessionStorage.getItem("th_platforms")); } catch (e) { platforms = null; }
-        if (!platforms || platforms.length === 0) {
-            window.location.replace("/");
-        }
+        // Do not force redirects from this page.
+        // If no platform selection exists, client-side filters can still show full content.
     }());
 </script>
 
