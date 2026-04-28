@@ -221,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // after payment so browse.html can filter by platform.
 
     const PLATFORMS = [
-        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/netflix.svg" },
-        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/hulu.svg" },
+        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N", logo: "	https://logosenvector.com/logo/img/netflix-4517.jpg" },
+        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H", logo: "https://store-images.s-microsoft.com/image/apps.60…aede1f148787.c1baaaf0-7b9d-4e6e-9661-56452a1f7ddd" },
         { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/disneyplus.svg" },
         { id: "max", label: "Max", color: "#6c2dc7", abbr: "M", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/max.svg" },
         { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/paramount.svg" },
