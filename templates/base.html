@@ -41,13 +41,10 @@
                 <li><a href="{{ url_for('pricing') }}">Pricing</a></li>
 
                 {% if session.get('user') %}
-                <!-- Logged-in users see Browse + Logout -->
                 <li><a href="{{ url_for('browse') }}">Browse</a></li>
                 <li><a href="{{ url_for('logout') }}" class="btn btn-outline btn-sm">Log Out</a></li>
                 {% else %}
-                <!-- Visitors see Log In + Sign Up -->
-                <li><a href="{{ url_for('login') }}" class="btn btn-outline btn-sm">Log In</a></li>
-                <li><a href="{{ url_for('signup') }}" class="btn btn-primary btn-sm">Sign Up</a></li>
+                <li><a href="/?onboard=1" class="btn btn-primary btn-sm">Get Started</a></li>
                 {% endif %}
             </ul>
         </nav>

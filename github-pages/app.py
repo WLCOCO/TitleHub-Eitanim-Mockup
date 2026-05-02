@@ -51,30 +51,6 @@ def pricing_html():
 # Authentication
 # ──────────────────────────────────────────────
 
-@app.route("/login")
-def login():
-    """Login page — directs visitors to the onboarding modal flow."""
-    return render_template("login.html")
-
-
-@app.route("/login.html")
-def login_html():
-    """Compatibility route so static-style links work in Flask dev mode."""
-    return redirect(url_for("login"))
-
-
-@app.route("/signup")
-def signup():
-    """Signup page — directs visitors to the onboarding modal flow."""
-    return render_template("signup.html")
-
-
-@app.route("/signup.html")
-def signup_html():
-    """Compatibility route so static-style links work in Flask dev mode."""
-    return redirect(url_for("signup"))
-
-
 @app.route("/guest")
 def guest():
     """Bypasses login for beta testing / demos — sets a guest session."""
