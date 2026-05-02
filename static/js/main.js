@@ -46,6 +46,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let activeFilter = "all";
 
+    // Mark each card's original section so we can restore it before re-filtering
+    contentCards.forEach(card => {
+        const parentRow = card.closest(".content-row");
+        if (parentRow) card.dataset.originalSection = parentRow.dataset.section;
+    });
+
     // ── Browse page: read selected platforms from sessionStorage ──
     // Hide filter pills for platforms the user didn't select,
     // then store the selection so filterContent can use it.
@@ -77,6 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
         let visibleCount = 0;
 
+        // Restore all cards to their original sections before re-filtering
+        contentCards.forEach(card => {
+            const orig = card.dataset.originalSection;
+            if (orig) {
+                const origRow = document.querySelector(`.content-row[data-section="${orig}"]`);
+                if (origRow && card.parentElement !== origRow.querySelector(".row-scroll")) {
+                    origRow.querySelector(".row-scroll").appendChild(card);
+                }
+            }
+        });
+
         contentCards.forEach(card => {
             const type = card.dataset.type;
             const platform = card.dataset.platform;
@@ -103,7 +120,27 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isVisible) visibleCount++;
         });
 
-        // Hide entire row sections when they have no visible cards
+        // Merge rows with fewer than 6 visible cards into the next visible row
+        const MIN_CARDS = 6;
+        const visibleRows = Array.from(contentRows).filter(row =>
+            row.querySelectorAll(".content-card:not([style*='display: none'])").length > 0
+        );
+        // Process from last to first so merging doesn't cascade unexpectedly
+        for (let i = visibleRows.length - 1; i >= 0; i--) {
+            const row = visibleRows[i];
+            const sparse = row.querySelectorAll(".content-card:not([style*='display: none'])");
+            if (sparse.length > 0 && sparse.length < MIN_CARDS) {
+                // Prefer next row, fall back to previous
+                const target = i < visibleRows.length - 1 ? visibleRows[i + 1] : (i > 0 ? visibleRows[i - 1] : null);
+                if (target) {
+                    const targetScroll = target.querySelector(".row-scroll");
+                    sparse.forEach(card => targetScroll.appendChild(card));
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        // Hide rows that ended up with no visible cards
         contentRows.forEach(row => {
             const visibleInRow = row.querySelectorAll(".content-card:not([style*='display: none'])");
             row.style.display = visibleInRow.length > 0 ? "" : "none";
@@ -135,6 +172,9 @@ document.addEventListener("DOMContentLoaded", () => {
             filterContent();
         });
     });
+
+    // Run once on load so platform-filtered pages start with merged rows
+    if (searchInput) filterContent();
 
 
     // ── 3. Auto-dismiss flash messages ──────────────
