@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const overlay = document.createElement("div");
                 overlay.className = "card-trailer-overlay";
                 overlay.innerHTML =
-                    `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(trailerId)}?autoplay=1&mute=1&controls=0&modestbranding=1&loop=1&playlist=${encodeURIComponent(trailerId)}&start=5" allow="autoplay; encrypted-media" loading="lazy"></iframe>`;
+                    `<iframe src="https://www.youtube.com/embed/${encodeURIComponent(trailerId)}?autoplay=1&mute=1&controls=0&modestbranding=1&loop=1&playlist=${encodeURIComponent(trailerId)}" allow="autoplay; encrypted-media" loading="lazy"></iframe>`;
                 poster.appendChild(overlay);
 
                 // Trigger the CSS opacity transition
@@ -235,6 +235,27 @@ document.addEventListener("DOMContentLoaded", () => {
         { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/fubo.svg" },
     ];
 
+    const PLAN_DETAILS = {
+        starter: {
+            price: "$24.99",
+            platforms: "Up to 3 streaming services",
+            resolution: "1080p HD",
+            devices: "1 device at once"
+        },
+        standard: {
+            price: "$32.99",
+            platforms: "Up to 4 streaming services",
+            resolution: "1080p HD",
+            devices: "2 devices at once"
+        },
+        unlimited: {
+            price: "$41.99",
+            platforms: "All available streaming services",
+            resolution: "4K Ultra HD + HDR",
+            devices: "4 devices at once"
+        }
+    };
+
     const obOverlay = document.getElementById("ob-overlay");
     const obCloseBtn = document.getElementById("ob-close");
     const openObBtn = document.getElementById("open-onboarding");
@@ -243,6 +264,33 @@ document.addEventListener("DOMContentLoaded", () => {
     let obPlan = null;
     let obLimit = 0;
     let obSelected = [];   // selected platform IDs
+
+    function setPlanDetails(planId) {
+        const details = PLAN_DETAILS[planId];
+        const selectedCard = document.querySelector(`.ob-plan-card[data-plan="${planId}"]`);
+        if (!details || !selectedCard) return;
+
+        document.querySelectorAll(".ob-plan-card").forEach(card => {
+            const isSelected = card.dataset.plan === planId;
+            card.classList.toggle("ob-plan-selected", isSelected);
+            card.setAttribute("aria-pressed", String(isSelected));
+        });
+
+        obPlan = planId;
+        obLimit = parseInt(selectedCard.dataset.limit, 10);
+
+        const detailMap = {
+            "ob-detail-price": details.price,
+            "ob-detail-platforms": details.platforms,
+            "ob-detail-resolution": details.resolution,
+            "ob-detail-devices": details.devices,
+        };
+
+        Object.entries(detailMap).forEach(([id, value]) => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = value;
+        });
+    }
 
     function obGoStep(n) {
         document.querySelectorAll(".ob-step").forEach(s => s.classList.remove("ob-step--active"));
@@ -261,6 +309,10 @@ document.addEventListener("DOMContentLoaded", () => {
         obPlan = null; obLimit = 0; obSelected = [];
         obOverlay.hidden = false;
         document.body.classList.add("ob-body-lock");
+        document.querySelectorAll(".ob-plan-card").forEach(card => {
+            card.classList.remove("ob-plan-selected");
+            card.setAttribute("aria-pressed", "false");
+        });
         obGoStep(1);
     }
 
@@ -292,20 +344,27 @@ document.addEventListener("DOMContentLoaded", () => {
     // Step 1 → Step 2: signup form submit (no validation needed for beta)
     document.getElementById("ob-signup-form")?.addEventListener("submit", e => {
         e.preventDefault();
+        setPlanDetails("standard");
         obGoStep(2);
     });
 
-    // Step 2: plan card click → Step 3
+    // Step 2: plan card click → update detail panel
     document.querySelectorAll(".ob-plan-card").forEach(card => {
-        card.addEventListener("click", () => {
-            document.querySelectorAll(".ob-plan-card").forEach(c => c.classList.remove("ob-plan-selected"));
-            card.classList.add("ob-plan-selected");
-            obPlan = card.dataset.plan;
-            obLimit = parseInt(card.dataset.limit, 10);
-            obSelected = [];
-            buildPlatformGrid();
-            obGoStep(3);
+        const choosePlan = () => setPlanDetails(card.dataset.plan);
+        card.addEventListener("click", choosePlan);
+        card.addEventListener("keydown", e => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                choosePlan();
+            }
         });
+    });
+
+    document.getElementById("ob-confirm-plan")?.addEventListener("click", () => {
+        if (!obPlan) setPlanDetails("standard");
+        obSelected = [];
+        buildPlatformGrid();
+        obGoStep(3);
     });
 
     function buildPlatformGrid() {

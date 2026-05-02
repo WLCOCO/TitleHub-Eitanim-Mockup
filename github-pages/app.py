@@ -7,9 +7,11 @@ so users can sign up, log in, and browse the mock platform.
 from flask import Flask, render_template, redirect, url_for, session, flash
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='../templates', static_folder='../static')
 # Secret key is required for session cookies and flash messages
 app.secret_key = os.urandom(24)
+# Disable static file caching in development so CSS/JS changes show immediately
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 # In-memory user store — good enough for a mockup, no database needed yet
 # Admin account pre-seeded for testing (remove before any real deployment)

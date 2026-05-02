@@ -234,28 +234,51 @@
                 <!-- Step 2: Plan -->
                 <div class="ob-step" id="ob-step-2">
                     <h2 class="ob-title">Choose Your Plan</h2>
-                    <p class="ob-desc">Pick how many platforms you want to stream from.</p>
-                    <div class="ob-plans-grid">
-                        <div class="ob-plan-card" data-plan="starter" data-limit="3">
+                    <p class="ob-desc">Tap a plan to compare features, then continue to pick your services.</p>
+                    <div class="ob-plans-grid" role="list" aria-label="Choose a plan">
+                        <div class="ob-plan-card" data-plan="starter" data-limit="3" role="button" tabindex="0"
+                            aria-pressed="false">
                             <h3>Starter</h3>
+                            <p class="ob-plan-desc">Up to 3 platforms</p>
                             <div class="ob-plan-price">$24<span class="ob-cents">.99</span><span
                                     class="ob-per">/mo</span></div>
-                            <p class="ob-plan-desc">Up to 3 platforms</p>
                         </div>
-                        <div class="ob-plan-card ob-plan-featured" data-plan="standard" data-limit="4">
+                        <div class="ob-plan-card ob-plan-featured" data-plan="standard" data-limit="4" role="button"
+                            tabindex="0" aria-pressed="false">
                             <span class="ob-plan-badge">Most Popular</span>
                             <h3>Standard</h3>
+                            <p class="ob-plan-desc">Up to 4 platforms</p>
                             <div class="ob-plan-price">$32<span class="ob-cents">.99</span><span
                                     class="ob-per">/mo</span></div>
-                            <p class="ob-plan-desc">Up to 4 platforms</p>
                         </div>
-                        <div class="ob-plan-card" data-plan="unlimited" data-limit="6">
+                        <div class="ob-plan-card" data-plan="unlimited" data-limit="6" role="button" tabindex="0"
+                            aria-pressed="false">
                             <h3>Unlimited</h3>
+                            <p class="ob-plan-desc">All platforms</p>
                             <div class="ob-plan-price">$41<span class="ob-cents">.99</span><span
                                     class="ob-per">/mo</span></div>
-                            <p class="ob-plan-desc">All platforms</p>
                         </div>
                     </div>
+                    <div class="ob-plan-details" id="ob-plan-details" aria-live="polite">
+                        <div class="ob-plan-detail-row">
+                            <span class="ob-plan-detail-label">Monthly price</span>
+                            <span class="ob-plan-detail-value" id="ob-detail-price">$32.99</span>
+                        </div>
+                        <div class="ob-plan-detail-row">
+                            <span class="ob-plan-detail-label">Platform access</span>
+                            <span class="ob-plan-detail-value" id="ob-detail-platforms">Up to 4 streaming
+                                services</span>
+                        </div>
+                        <div class="ob-plan-detail-row">
+                            <span class="ob-plan-detail-label">Monthly picks</span>
+                            <span class="ob-plan-detail-value" id="ob-detail-resolution">12 titles or episodes</span>
+                        </div>
+                        <div class="ob-plan-detail-row">
+                            <span class="ob-plan-detail-label">Household devices</span>
+                            <span class="ob-plan-detail-value" id="ob-detail-devices">2 devices at once</span>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-full" id="ob-confirm-plan">Continue with this plan</button>
                 </div>
 
                 <!-- Step 3: Platform Selection -->
