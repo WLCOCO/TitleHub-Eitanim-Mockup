@@ -83,13 +83,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
         let visibleCount = 0;
 
-        // Restore all cards to their original sections before re-filtering
+        // Un-hide all rows and restore all cards to their original sections before re-filtering
+        contentRows.forEach(row => { row.style.display = ""; });
         contentCards.forEach(card => {
             const orig = card.dataset.originalSection;
             if (orig) {
                 const origRow = document.querySelector(`.content-row[data-section="${orig}"]`);
-                if (origRow && card.parentElement !== origRow.querySelector(".row-scroll")) {
-                    origRow.querySelector(".row-scroll").appendChild(card);
+                if (origRow) {
+                    const scroll = origRow.querySelector(".row-scroll");
+                    if (scroll && card.parentElement !== scroll) scroll.appendChild(card);
                 }
             }
         });
@@ -120,29 +122,46 @@ document.addEventListener("DOMContentLoaded", () => {
             if (isVisible) visibleCount++;
         });
 
-        // Merge rows with fewer than 6 visible cards into the next visible row
+        // Merge rows with fewer than 6 visible cards into the nearest visible neighbor.
+        // Repeat until stable (a merge may drop another row below the threshold).
         const MIN_CARDS = 6;
-        const visibleRows = Array.from(contentRows).filter(row =>
-            row.querySelectorAll(".content-card:not([style*='display: none'])").length > 0
-        );
-        // Process from last to first so merging doesn't cascade unexpectedly
-        for (let i = visibleRows.length - 1; i >= 0; i--) {
-            const row = visibleRows[i];
-            const sparse = row.querySelectorAll(".content-card:not([style*='display: none'])");
-            if (sparse.length > 0 && sparse.length < MIN_CARDS) {
-                // Prefer next row, fall back to previous
-                const target = i < visibleRows.length - 1 ? visibleRows[i + 1] : (i > 0 ? visibleRows[i - 1] : null);
+        const rowList = Array.from(contentRows);
+        let changed = true;
+        while (changed) {
+            changed = false;
+            for (let i = 0; i < rowList.length; i++) {
+                const row = rowList[i];
+                if (row.style.display === "none") continue;
+                const vis = Array.from(row.querySelectorAll(".content-card")).filter(
+                    c => c.style.display !== "none"
+                );
+                if (vis.length === 0) { row.style.display = "none"; continue; }
+                if (vis.length >= MIN_CARDS) continue;
+
+                // Find the nearest visible neighbor (prefer next, fall back to previous)
+                let target = null;
+                for (let j = i + 1; j < rowList.length; j++) {
+                    if (rowList[j].style.display !== "none") { target = rowList[j]; break; }
+                }
+                if (!target) {
+                    for (let j = i - 1; j >= 0; j--) {
+                        if (rowList[j].style.display !== "none") { target = rowList[j]; break; }
+                    }
+                }
                 if (target) {
                     const targetScroll = target.querySelector(".row-scroll");
-                    sparse.forEach(card => targetScroll.appendChild(card));
+                    vis.forEach(card => targetScroll.appendChild(card));
                     row.style.display = "none";
+                    changed = true;
                 }
             }
         }
 
-        // Hide rows that ended up with no visible cards
+        // Hide any remaining rows with no visible cards
         contentRows.forEach(row => {
-            const visibleInRow = row.querySelectorAll(".content-card:not([style*='display: none'])");
+            const visibleInRow = Array.from(row.querySelectorAll(".content-card")).filter(
+                c => c.style.display !== "none"
+            );
             row.style.display = visibleInRow.length > 0 ? "" : "none";
         });
 
