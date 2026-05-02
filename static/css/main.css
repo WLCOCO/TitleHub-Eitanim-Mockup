@@ -844,6 +844,17 @@ h4 {
     box-shadow: var(--shadow-card);
 }
 
+.demo-notice {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    background: rgba(108, 92, 231, 0.08);
+    border: 1px solid rgba(108, 92, 231, 0.2);
+    border-radius: var(--radius);
+    padding: 0.45rem 0.8rem;
+    margin-bottom: 1.6rem;
+}
+
 .auth-title {
     font-size: 1.8rem;
     text-align: center;
