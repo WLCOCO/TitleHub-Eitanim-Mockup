@@ -221,18 +221,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // after payment so browse.html can filter by platform.
 
     const PLATFORMS = [
-        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N", logo: "	https://logosenvector.com/logo/img/netflix-4517.jpg" },
-        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H", logo: "https://store-images.s-microsoft.com/image/apps.60…aede1f148787.c1baaaf0-7b9d-4e6e-9661-56452a1f7ddd" },
-        { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/disneyplus.svg" },
-        { id: "max", label: "Max", color: "#6c2dc7", abbr: "M", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/max.svg" },
-        { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/paramount.svg" },
-        { id: "prime", label: "Prime Video", color: "#00a8e0", abbr: "PV", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/amazonprimevideo.svg" },
-        { id: "peacock", label: "Peacock", color: "#e8501a", abbr: "PC", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/peacock.svg" },
-        { id: "appletv", label: "Apple TV+", color: "#444444", abbr: "TV+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/appletv.svg" },
-        { id: "crunchyroll", label: "Crunchyroll", color: "#f47521", abbr: "CR", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/crunchyroll.svg" },
-        { id: "espnplus", label: "ESPN+", color: "#cc0000", abbr: "E+", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/espn.svg" },
-        { id: "foxsports", label: "Fox Sports", color: "#0b3d91", abbr: "FOX", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fox.svg" },
-        { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo", logo: "https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/fubo.svg" },
+        { id: "netflix", label: "Netflix", color: "#e50914", abbr: "N", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/netflix.svg" },
+        { id: "hulu", label: "Hulu", color: "#1ce783", abbr: "H", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/hulu.svg" },
+        { id: "disney", label: "Disney+", color: "#113ccf", abbr: "D+", logo: "https://upload.wikimedia.org/wikipedia/commons/6/64/Disney%2B_2024.svg" },
+        { id: "max", label: "Max", color: "#6c2dc7", abbr: "M", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/max.svg" },
+        { id: "paramount", label: "Paramount+", color: "#0064ff", abbr: "P+", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/paramountplus.svg" },
+        { id: "prime", label: "Prime Video", color: "#00a8e0", abbr: "PV", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/primevideo.svg" },
+        { id: "peacock", label: "Peacock", color: "#e8501a", abbr: "PC", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d3/NBCUniversal_Peacock_Logo.svg" },
+        { id: "appletv", label: "Apple TV+", color: "#444444", abbr: "TV+", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/appletv.svg" },
+        { id: "crunchyroll", label: "Crunchyroll", color: "#f47521", abbr: "CR", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/crunchyroll.svg" },
+        { id: "espnplus", label: "ESPN+", color: "#cc0000", abbr: "E+", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/ESPN_wordmark.svg" },
+        { id: "foxsports", label: "Fox Sports", color: "#0b3d91", abbr: "FOX", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Fox_Sports_wordmark_logo.svg/330px-Fox_Sports_wordmark_logo.svg.png" },
+        { id: "fubotv", label: "FuboTV", color: "#b70000", abbr: "fubo", logo: "https://cdn.jsdelivr.net/npm/simple-icons/icons/fubo.svg" },
     ];
 
     const obOverlay = document.getElementById("ob-overlay");
